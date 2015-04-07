@@ -1,0 +1,196 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css');
+
+html{
+    height:100%;
+}
+
+body {
+    color: #5a5a5a;
+    height:100%;
+}
+
+/*remove the margin from the default bootstrap nav bar*/
+.navbar, .navbar-inverse, .navbar-default, .navbar-static-top{
+    margin:0;
+}
+
+/*remove the border-top from the table cell*/
+.table th, .table td {
+    padding: 10px 0 10px 0;
+    border-top: none !important;
+}
+
+.table tr:nth-child(2){
+    border-top:1px solid #c7c7c7 !important;
+}
+
+
+/*somehow it gave me some extra padding space when the screen is shrinked so I remove it*/
+.navbar-right{
+    padding:0;
+}
+
+button:focus
+{
+    outline-style:none;
+}
+
+/*add a bit space for the header*/
+.data-content h4 {
+    margin:20px 0 20px 0;
+    color:#368bd1;
+}
+
+.data-content .col-xs-4 {
+    text-align: center;
+}
+
+.data-content .col-xs-4 p {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+/*to make data-content take up entire space*/
+.data-content{
+    height:calc(100% - 54px);
+}
+
+@media (min-width: 768px) {
+    #net-sale-chart{
+        border-right:1px solid #c7c7c7;
+    }
+    /*280px refers the height of the entire country button area*/
+    #statistic{
+        height:calc(100% - 260px);
+    }
+    #statistic .col-sm-6{
+        height:100%;
+    }
+
+    #bar-chart-area{
+        height:calc(100% - 60px);
+        border-top:1px solid #aeaeae;
+        border-right:1px solid #aeaeae;
+        border-left:1px solid #aeaeae;
+        min-width:300px;
+    }
+}
+
+@media (max-width: 768px) {
+    h4{
+        text-align: center;
+    }
+}
+
+
+.glyphicon-chevron-left{display:none;}
+.glyphicon-chevron-right{display:none;}
+
+/*this extra is for resizing grid since sx is not small and good enough for the view */
+@media (max-width: 499px) {
+    .customized-grid{
+        width:100%;
+    }
+
+    #head-row{
+        display:none;
+    }
+
+    .table th, .table td {
+        border-top: none !important;
+    }
+    td{
+        display:inline-block;
+    }
+    .table tr:nth-child(2){
+        border-top:none !important;
+    }
+    .product-column td:first-child{
+        border-top:1px solid #e1e1e1 !important;
+        display:block;
+    }
+    .product-column td:nth-child(2){
+        float:left;
+    }
+    .product-column td:nth-child(2):after{
+        content: " units";
+    }
+    .product-column td:nth-child(3){
+        float:right;
+        display:inline-block;
+        width:40%;
+    }
+    .country-btn{
+        display:none;
+    }
+    .clicked{
+        display:inline-block;
+    }
+    .glyphicon-chevron-left{
+        position:absolute;
+        top:120px;
+        left:5px;
+        z-index:1;
+        display:block;
+        font-size:30px;
+
+    }
+    .glyphicon-chevron-right{
+        position:absolute;
+        top:120px;
+        z-index:1;
+        right:5px;
+        display:block;
+        font-size:30px;
+    }
+    .glyphicon-chevron-left:hover{
+        color: #a9a9a9;
+
+    }
+    .glyphicon-chevron-right:hover{
+        color: #a9a9a9;
+    }
+
+}
+
+.btn-list-portion{
+    position:relative;
+    padding:60px 0 60px 0;
+    font-size:20px;
+    /*I use my favorite gradient online generator for the background*/
+    /*http://www.colorzilla.com/gradient-editor/*/
+    background: radial-gradient(ellipse at center, rgb(74, 179, 250) 0%, rgb(53, 127, 173) 76%, rgb(44, 92, 143) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#54a3e3', endColorstr='#358ade', GradientType=1 );
+}
+
+.country-btn{
+    height:140px;
+    width:140px;
+    border-radius:50%;
+    border:6px solid #94d5de;
+    background-color: white;
+    color: #555555;
+    font-size:15px;
+}
+
+.sale{
+    font-size:20px;
+    font-weight:500;
+}
+
+.country-btn:hover{
+    border:8px solid #f2be45;
+}
+
+.clicked{
+    border:8px solid #f2be45;
+}
+#collapse-btn{
+    border:0;
+}
+
+.glyphicon-filter{
+    color: #d2d2d2;
+}
+
+
+

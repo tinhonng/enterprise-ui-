@@ -1,0 +1,37 @@
+<template name="navBar">
+    <nav class="navbar navbar-inverse navbar-default navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button id="collapse-btn" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="glyphicon glyphicon-filter"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img style="height:25px; width:50px;" alt="SAP" src="SAP-Logo.png">
+                </a>
+                <p class="navbar-text">Net Sales</p>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-right">
+                    <select class="form-control">
+                        <option value="2015">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                    </select>
+
+                    <select class="form-control">
+                        <option value="Category1">Category1</option>
+                        <option value="Category2">Category2</option>
+                        <option value="Category3">Category3</option>
+                    </select>
+
+                    <select class="form-control">
+                        <option value="Sub Category1">Sub Category1</option>
+                        <option value="Sub Category2">Sub Category2</option>
+                        <option value="Sub Category3">Sub Category3</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </nav>
+</template>

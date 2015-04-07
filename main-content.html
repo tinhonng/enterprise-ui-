@@ -1,0 +1,40 @@
+<template name="mainContent">
+    <div class="container-fluid data-content">
+        <div class="row btn-list-portion">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            {{#each countrys}}
+                <div class="col-xs-4 customized-grid">
+                    <button class="country-btn {{#if checkedOrUnchecked name}}clicked{{/if}}" data-choice="{{name}}" data-index="{{index}}">{{name}}<br/>
+                        <span class="sale">{{country_data.net_sales}}</span>
+                    </button>
+                </div>
+            {{/each}}
+        </div>
+        <div id="statistic" class="row">
+            <div id="net-sale-chart" class="col-sm-6">
+                <h4>Net Sales for {{getCountryName}} 2014</h4>
+                <div id="bar-chart-area">{{ok}}</div>
+            </div>
+            <div class="col-sm-6" >
+                <h4>Best Seller Products</h4>
+
+                <table class="table">
+                    <tr id="head-row">
+                        <th>Product</th>
+                        <th>Units</th>
+                        <th>Total</th>
+
+                    </tr>
+                    {{#each products}}
+                    <tr class="product-column">
+                        <td>{{name}}</td>
+                        <td>{{units}}</td>
+                        <td>{{total}}</td>
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+    </div>
+</template>

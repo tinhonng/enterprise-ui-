@@ -1,5 +1,5 @@
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css');
-
+@import url('animate.css');
 html{
     height:100%;
 }
@@ -189,8 +189,20 @@ button:focus
 }
 
 .glyphicon-filter{
+    z-index:1;
     color: #d2d2d2;
 }
+#spinner-holder{
+    position:relative;
+    width:100%;
+    height:100%;
+    background: radial-gradient(ellipse at center, rgb(74, 179, 250) 0%, rgb(53, 127, 173) 76%, rgb(44, 92, 143) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#54a3e3', endColorstr='#358ade', GradientType=1 );
+}
 
-
+.fa-spinner{
+    color: #a9f3fd;
+    position: absolute;
+    top: calc(50% - 0.5em); /* -0.5em need because .fa-spin has some pre-style */
+    left: calc(50% - 0.5em);
+}
 

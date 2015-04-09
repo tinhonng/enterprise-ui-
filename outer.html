@@ -1,0 +1,8 @@
+<template name="outer">
+    {{#if Template.subscriptionsReady}}
+        {{> navBar}}
+        {{> mainContent}}
+    {{else}}
+        {{> loading}}
+    {{/if}}
+</template>

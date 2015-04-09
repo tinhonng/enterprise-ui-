@@ -6,28 +6,6 @@ Countrys = new Mongo.Collection("countrys");
 if(Meteor.isClient) {
     Meteor.startup(function () {
         Session.set('choice', 'Country 1');
-        Session.set('index', 0);
-
-        var rightBtn = document.getElementsByClassName('glyphicon-chevron-right')[0];
-        var leftBtn = document.getElementsByClassName('glyphicon-chevron-left')[0];
-        var rb = new Hammer(rightBtn);
-        var lb = new Hammer(leftBtn);
-        rb.on("tap press swipe pan", function (ev) {
-            var curIndex = $(".clicked")[0].dataset['index'];
-            curIndex = (curIndex + 1) % 3;
-            $("button").attr("class", "country-btn");
-            var btn = $(".country-btn[data-index=" + curIndex + "]");
-            btn.addClass('clicked');
-        });
-        lb.on("tap press swipe pan", function (ev) {
-            var curIndex = $(".clicked")[0].dataset['index'];
-            curIndex = curIndex - 1;
-            if (curIndex < 0)
-                curIndex = 2;
-            $("button").attr("class", "country-btn");
-            var btn = $(".country-btn[data-index=" + curIndex + "]");
-            btn.addClass('clicked');
-        });
     });
     function drawChart(currentCountry) {
         var quarterArr = currentCountry.country_data.yearly_distribution;
@@ -96,17 +74,45 @@ if(Meteor.isClient) {
         });
 
     }
+    Template.outer.onCreated(function(){
+        this.subscribe("countrys");
+    });
 
-
+    Template.mainContent.onRendered(function(){
+        var country = Countrys.findOne({name:'Country 1'});
+        drawChart(country);
+        var rightBtn = document.getElementsByClassName('glyphicon-chevron-right')[0];
+        var leftBtn = document.getElementsByClassName('glyphicon-chevron-left')[0];
+        var rb = new Hammer(rightBtn);
+        var lb = new Hammer(leftBtn);
+        rb.on("tap", function (ev) {
+            var curIndex = $(".clicked")[0].dataset['index'];
+            curIndex = (curIndex + 1) % 3;
+            $(".country-btn").attr("class", "country-btn");
+            var btn = $(".country-btn[data-index=" + curIndex + "]");
+            var newChoice = btn.data('choice');
+            btn.addClass('clicked');
+            btn.addClass('animated fadeInRight');
+            Session.set('choice', newChoice);
+            var country = Countrys.findOne({name: newChoice});
+            drawChart(country);
+        });
+        lb.on("tap", function (ev) {
+            var curIndex = $(".clicked")[0].dataset['index'];
+            curIndex = curIndex - 1;
+            if (curIndex < 0)
+                curIndex = 2;
+            $(".country-btn").attr("class", "country-btn");
+            var btn = $(".country-btn[data-index=" + curIndex + "]");
+            var newChoice = btn.data('choice');
+            btn.addClass('clicked');
+            btn.addClass('animated fadeInLeft');
+            Session.set('choice', newChoice);
+            var country = Countrys.findOne({name: newChoice});
+            drawChart(country);
+        });
+    });
     Template.mainContent.events({
-        "click .glyphicon-chevron-left": function (event) {
-            //$('.country-btn').trigger('click');
-
-        },
-        "click .glyphicon-chevron-right": function (event) {
-            //$('.country-btn').trigger('click');
-
-        },
         "click .country-btn": function (event) {
             var str = event.target.dataset['choice'];
             Session.set('choice', str);
@@ -117,6 +123,7 @@ if(Meteor.isClient) {
                 Session.set('country', country);
                 drawChart(country);
             }
+            event.defaultValue = false;
         }
     });
     Template.mainContent.helpers({
@@ -124,7 +131,6 @@ if(Meteor.isClient) {
             return choice === Session.get('choice');
         },
         countrys: function () {
-            console.log('here');
             var countries = Countrys.find();
             if (countries) {
                 var newCountries = countries.fetch();
@@ -138,24 +144,13 @@ if(Meteor.isClient) {
             if (Session.get('choice'))
                 return Session.get('choice').replace(/ /g, '');
         },
-        ok: function () {
-            var countrys = Countrys.find();
-            if (countrys) {
-                var country = countrys.fetch()[0];
-                Session.set('country', country);
-                drawChart(country);
-            }
-        },
         products: function () {
             var choice = Session.get('choice');
-            if (choice) {
-                var country = Session.get('country');
-                if (country) {
-                    return country.country_data.best_sellers;
-                }
+            var country = Countrys.findOne({name: choice});
+            if (country) {
+                return country.country_data.best_sellers;
             }
         }
-
     });
 }
 
@@ -170,5 +165,9 @@ if(Meteor.isServer){
                 Countrys.insert(item);
             });
         }
+
+        Meteor.publish("countrys", function(){
+            return Countrys.find();
+        });
     });
 }
